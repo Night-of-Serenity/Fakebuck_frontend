@@ -30,7 +30,13 @@ const registerSchema = Joi.object({
 
 const validateRegister = (input) => {
   const { error } = registerSchema.validate(input, { abortEarly: false });
-  return error;
+  console.dir(error);
+  if (error) {
+    return error.details.reduce((acc, el) => {
+      acc[el.path[0]] = el.message;
+      return acc;
+    }, {});
+  }
 };
 
 export default validateRegister;

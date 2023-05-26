@@ -13,14 +13,17 @@ const initialInput = {
 
 export default function RegisterForm() {
   const [input, setInput] = useState(initialInput);
-  const [error, setError] = useState({ firstName: "tset error" });
+  const [error, setError] = useState({});
 
   const handleChangeInput = (e) => setInput({ ...input, [e.target.name]: e.target.value });
 
   const handdleSubmitForm = (e) => {
     e.preventDefault();
     const result = validateRegister(input);
-    console.dir(result);
+    // console.dir(result);
+    if (result) {
+      return setError(result);
+    }
   };
   return (
     <form onSubmit={handdleSubmitForm}>
@@ -31,8 +34,9 @@ export default function RegisterForm() {
             value={input.firstName}
             onChange={handleChangeInput}
             name="firstName"
+            isInvalid={error.firstName}
           />
-          <InputErrorMessage message={"test error first name"} />
+          {error.firstName && <InputErrorMessage message={error.firstName} />}
         </div>
         <div>
           <RegisterInput
@@ -40,15 +44,20 @@ export default function RegisterForm() {
             value={input.lastName}
             onChange={handleChangeInput}
             name="lastName"
+            isInvalid={error.lastName}
           />
+          {error.lastName && <InputErrorMessage message={error.lastName} />}
         </div>
+
         <div className="col-span-full">
           <RegisterInput
             placeholder="Email address or mobile number"
             value={input.emailOrMobile}
             onChange={handleChangeInput}
             name="emailOrMobile"
+            isInvalid={error.emailOrMobile}
           />
+          {error.emailOrMobile && <InputErrorMessage message={error.emailOrMobile} />}
         </div>
         <div className="col-span-full">
           <RegisterInput
@@ -56,7 +65,9 @@ export default function RegisterForm() {
             value={input.password}
             onChange={handleChangeInput}
             name="password"
+            isInvalid={error.password}
           />
+          {error.password && <InputErrorMessage message={error.password} />}
         </div>
         <div className="col-span-full">
           <RegisterInput
@@ -64,7 +75,9 @@ export default function RegisterForm() {
             value={input.confirmPassword}
             onChange={handleChangeInput}
             name="confirmPassword"
+            isInvalid={error.confirmPassword}
           />
+          {error.confirmPassword && <InputErrorMessage message={error.confirmPassword} />}
         </div>
       </div>
 
