@@ -1,5 +1,7 @@
 import { useState } from "react";
 import RegisterInput from "./RegisterInput";
+import validateRegister from "../validators/validate-register";
+import InputErrorMessage from "./InputErrorMessage";
 
 const initialInput = {
   firstName: "",
@@ -11,9 +13,14 @@ const initialInput = {
 
 export default function RegisterForm() {
   const [input, setInput] = useState(initialInput);
+  const [error, setError] = useState({ firstName: "tset error" });
+
   const handleChangeInput = (e) => setInput({ ...input, [e.target.name]: e.target.value });
+
   const handdleSubmitForm = (e) => {
     e.preventDefault();
+    const result = validateRegister(input);
+    console.dir(result);
   };
   return (
     <form onSubmit={handdleSubmitForm}>
@@ -25,6 +32,7 @@ export default function RegisterForm() {
             onChange={handleChangeInput}
             name="firstName"
           />
+          <InputErrorMessage message={"test error first name"} />
         </div>
         <div>
           <RegisterInput
