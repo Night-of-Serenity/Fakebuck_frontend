@@ -6,6 +6,8 @@ import validateRegister from "../validators/validate-register";
 import InputErrorMessage from "./InputErrorMessage";
 import * as authService from "../../../api/auth-api";
 import { setAccessToken } from "../../../utils/localstorage";
+import { useDispatch } from "react-redux";
+import { register } from "../slice/auth-slice.";
 
 const initialInput = {
   firstName: "",
@@ -18,14 +20,17 @@ const initialInput = {
 export default function RegisterForm({ onSuccess }) {
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+  const dispatch = useDispatch();
 
   const handleChangeInput = (e) => setInput({ ...input, [e.target.name]: e.target.value });
 
   const handdleSubmitForm = async (e) => {
     try {
       e.preventDefault();
-      const result = validateRegister(input);
+      const result = validateRegister(input); // use validate which return error if there is error
       // console.dir(result);
+
+      // if there is error, keep it in error state
       if (result) {
         return setError(result);
       }
@@ -33,7 +38,8 @@ export default function RegisterForm({ onSuccess }) {
       const res = await authService.register(input);
       setAccessToken(res.data.accessToken);
       toast.success("register successfully");
-      onSuccess();
+      onSuccess(); // use to close register modal
+      dispatch(register());
     } catch (err) {
       toast.error(err.response.data.message);
     }
