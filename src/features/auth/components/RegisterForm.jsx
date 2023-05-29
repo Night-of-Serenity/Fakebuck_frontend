@@ -4,10 +4,8 @@ import { toast } from "react-toastify";
 import RegisterInput from "./RegisterInput";
 import validateRegister from "../validators/validate-register";
 import InputErrorMessage from "./InputErrorMessage";
-import * as authService from "../../../api/auth-api";
-import { setAccessToken } from "../../../utils/localstorage";
 import { useDispatch } from "react-redux";
-import { register } from "../slice/auth-slice.";
+import { registerAsync } from "../slice/auth-slice.";
 
 const initialInput = {
   firstName: "",
@@ -35,11 +33,12 @@ export default function RegisterForm({ onSuccess }) {
         return setError(result);
       }
       setError({});
-      const res = await authService.register(input);
-      setAccessToken(res.data.accessToken);
+      // const res = await authService.register(input);
+      // setAccessToken(res.data.accessToken);
+      await dispatch(registerAsync(input)).unwrap();
       toast.success("register successfully");
       onSuccess(); // use to close register modal
-      dispatch(register());
+      // dispatch(register());
     } catch (err) {
       toast.error(err.response.data.message);
     }
