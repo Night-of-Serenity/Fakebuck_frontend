@@ -40,6 +40,7 @@ export default function RegisterForm({ onSuccess }) {
       onSuccess(); // use to close register modal
       // dispatch(register());
     } catch (err) {
+      console.dir(err);
       toast.error(err.response.data.message);
     }
   };

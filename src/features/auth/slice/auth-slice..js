@@ -4,33 +4,46 @@ import { setAccessToken } from "../../../utils/localstorage";
 
 const initialState = {
   isAuthenticated: false,
+  error: null,
+  loading: false,
 };
 
-export const registerAsync = createAsyncThunk("auth/registerAsync", async (input) => {
+export const registerAsync = createAsyncThunk("auth/registerAsync", async (input, thunkApi) => {
   try {
     const res = await authService.register(input);
-    setAccessToken(res.data.setAccessToken);
+    setAccessToken(res.data.accessToken);
     return;
-  } catch (err) {}
+  } catch (err) {
+    return thunkApi.rejectWithValue(err.response.data.message);
+  }
 });
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    register: (state, action) => {
-      state.isAuthenticated = true;
-    },
-  },
+  //   reducers: {
+  //     register: (state, action) => {
+  //       state.isAuthenticated = true;
+  //     },
+  //   },
   extraReducers: (builder) =>
-    builder.addCase(registerAsync.fulfilled, (state) => {
-      state.isAuthenticated = true;
-    }),
+    builder
+      .addCase(registerAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(registerAsync.fulfilled, (state) => {
+        state.isAuthenticated = true;
+        state.loading = false;
+      })
+      .addCase(registerAsync.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      }),
 });
 
 export default authSlice.reducer;
 
-export const { register } = authSlice.actions;
+// export const { register } = authSlice.actions;
 
 // action object { type: 'register' }
 // action creator register => () => ({ type: 'register' })
