@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+
 import RegisterInput from "./RegisterInput";
 import validateRegister from "../validators/validate-register";
 import InputErrorMessage from "./InputErrorMessage";
+import * as authService from "../../../api/auth-api";
+import { setAccessToken } from "../../../utils/localstorage";
 
 const initialInput = {
   firstName: "",
@@ -11,18 +15,27 @@ const initialInput = {
   confirmPassword: "",
 };
 
-export default function RegisterForm() {
+export default function RegisterForm({ onSuccess }) {
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
 
   const handleChangeInput = (e) => setInput({ ...input, [e.target.name]: e.target.value });
 
-  const handdleSubmitForm = (e) => {
-    e.preventDefault();
-    const result = validateRegister(input);
-    // console.dir(result);
-    if (result) {
-      return setError(result);
+  const handdleSubmitForm = async (e) => {
+    try {
+      e.preventDefault();
+      const result = validateRegister(input);
+      // console.dir(result);
+      if (result) {
+        return setError(result);
+      }
+      setError({});
+      const res = await authService.register(input);
+      setAccessToken(res.data.accessToken);
+      toast.success("register successfully");
+      onSuccess();
+    } catch (err) {
+      toast.error(err.response.data.message);
     }
   };
   return (
