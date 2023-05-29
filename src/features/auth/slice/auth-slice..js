@@ -1,8 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuthenticated: false,
 };
+
+// export const registerAsync = createAsyncThunk('auth/registerAsync', () => {
+
+// })
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
