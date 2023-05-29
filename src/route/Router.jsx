@@ -2,10 +2,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import HomePage from "../pages/HomePage";
 import RedirectAuthenticated from "../features/auth/components/RedirectAuthenticated";
+import ProtectedRoute from "../features/auth/components/ProtectedRoute";
+import Header from "../layouts/Header";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      // <ProtectedRoute>
+      <Header />
+      // </ProtectedRoute>
+    ),
   },
   {
     path: "/login",
@@ -14,6 +21,10 @@ const router = createBrowserRouter([
         <LoginPage />
       </RedirectAuthenticated>
     ),
+  },
+  {
+    path: "/friend",
+    element: <Header />,
   },
 ]);
 
