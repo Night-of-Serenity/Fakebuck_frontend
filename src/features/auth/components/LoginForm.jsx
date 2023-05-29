@@ -2,6 +2,9 @@ import LoginInput from "./LoginInput";
 import validateLogin from "../validators/validate-login";
 import InputErrorMessage from "./InputErrorMessage";
 import useForm from "../../../hooks/useForm";
+import { useDispatch } from "react-redux";
+import { login } from "../slice/auth-slice.";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const { input, handleChangeInput, handleSubmitForm, error } = useForm(
@@ -11,8 +14,16 @@ export default function LoginForm() {
     },
     validateLogin
   );
+  const dispatch = useDispatch();
+  const onSubmit = async (data) => {
+    try {
+      await dispatch(login(data)).unwrap();
+    } catch (err) {
+      toast.error("invalid email address or mobile or password");
+    }
+  };
   return (
-    <form onSubmit={handleSubmitForm(() => {})}>
+    <form onSubmit={handleSubmitForm(onSubmit)}>
       <div className="grid gap-4">
         <div>
           <LoginInput
