@@ -1,4 +1,3 @@
-import React from "react";
 import createClasses from "../utils/create-classes";
 
 export default function Avatar({ src, className = "h-10 w-10" }) {

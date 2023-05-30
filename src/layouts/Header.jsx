@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { FacebookIcon, RightFromBracketIcon } from "../icons";
+import { FacebookIcon } from "../icons";
 import Menu from "./Menu";
 import Dropdown from "./Dropdown";
 

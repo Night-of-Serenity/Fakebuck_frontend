@@ -11,7 +11,7 @@ export default function Dropdown() {
   // console.log(dropdownEl);
   useEffect(() => {
     const handleClickOutside = (e) => {
-      console.log(e.target);
+      // console.log(e.target);
       if (!dropdownEl.current.contains(e.target)) setOpen(false);
     };
     console.log(dropdownEl.current);
