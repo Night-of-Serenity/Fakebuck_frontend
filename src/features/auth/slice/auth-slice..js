@@ -33,6 +33,15 @@ export const login = createAsyncThunk("auth/login", async (input, thunkApi) => {
   }
 });
 
+export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
+  try {
+    const res = await authService.fetchMe();
+    return res.data.user;
+  } catch (err) {
+    return thunkApi.rejectWithValue(err.response.data.message);
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -57,6 +66,18 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.user = action.payload;
+      })
+      .addCase(fetchMe.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMe.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+      })
+      .addCase(fetchMe.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
       }),
 });
 

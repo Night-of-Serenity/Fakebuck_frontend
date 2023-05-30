@@ -10,6 +10,7 @@ export default function Dropdown() {
   const [open, setOpen] = useState(false);
   const dropdownEl = useRef();
 
+  const user = useSelector((state) => state.auth.user);
   // console.log(dropdownEl);
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -23,10 +24,7 @@ export default function Dropdown() {
   return (
     <div className="relative" ref={dropdownEl}>
       <div role="button" onClick={() => setOpen(!open)}>
-        <Avatar
-          className="h-10 w-10"
-          src="https://images.pexels.com/photos/1267335/pexels-photo-1267335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        />
+        <Avatar className="h-10 w-10" src={user.profileImage} />
       </div>
       {open && (
         <div
@@ -37,10 +35,12 @@ export default function Dropdown() {
             <div className="flex items-center gap-4 rounded-lg hover:bg-gray-100 p-2">
               <Avatar
                 className="h-[3.75rem] w-[3.75rem]"
-                src="https://images.pexels.com/photos/1267335/pexels-photo-1267335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                src={user.profileImage}
               />
               <div>
-                <div className="font-semibold">Green Fai</div>
+                <div className="font-semibold">
+                  {user.firstName} {user.lastName}
+                </div>
                 <div className="text-gray-500 text-sm">See your profile</div>
               </div>
             </div>
