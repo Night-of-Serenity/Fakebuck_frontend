@@ -10,7 +10,7 @@ function App() {
   }
   return (
     <div>
-      <Router />;
+      <Router />
       <ToastContainer position="bottom-center" theme="dark" autoClose={3000} />
     </div>
   );
