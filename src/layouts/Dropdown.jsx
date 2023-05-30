@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function Dropdown() {
   const [open, setOpen] = useState(false);
   const dropdownEl = useRef();
+
   // console.log(dropdownEl);
   useEffect(() => {
     const handleClickOutside = (e) => {
