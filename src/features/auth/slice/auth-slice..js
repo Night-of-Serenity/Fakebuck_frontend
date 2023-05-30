@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as authService from "../../../api/auth-api";
-import { setAccessToken } from "../../../utils/localstorage";
+import { removeAccessToken, setAccessToken } from "../../../utils/localstorage";
 
 const initialState = {
   isAuthenticated: false,
   error: null,
   loading: false,
   user: null,
-  initialLoading: true,
+  initialLoading: false,
 };
 
 export const registerAsync = createAsyncThunk(
@@ -16,7 +16,8 @@ export const registerAsync = createAsyncThunk(
     try {
       const res = await authService.register(input);
       setAccessToken(res.data.accessToken);
-      return;
+      const resFetchMe = await authService.fetchMe();
+      return resFetchMe.data.user;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -43,6 +44,10 @@ export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
   }
 });
 
+export const logOut = createAsyncThunk("auth/logout", async () => {
+  removeAccessToken();
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -53,12 +58,17 @@ const authSlice = createSlice({
   //   },
   extraReducers: (builder) =>
     builder
+      .addCase(logOut.fulfilled, (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
+      })
       .addCase(registerAsync.pending, (state) => {
         state.loading = true;
       })
-      .addCase(registerAsync.fulfilled, (state) => {
+      .addCase(registerAsync.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.loading = false;
+        state.user = action.payload;
       })
       .addCase(registerAsync.rejected, (state, action) => {
         state.error = action.payload;
@@ -76,6 +86,9 @@ const authSlice = createSlice({
       .addCase(fetchMe.rejected, (state, action) => {
         state.error = action.payload;
         state.initialLoading = false;
+      })
+      .addCase(fetchMe.pending, (state) => {
+        state.initialLoading = true;
       }),
 });
 

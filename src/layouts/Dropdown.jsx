@@ -5,12 +5,17 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logOut } from "../features/auth/slice/auth-slice.";
 
 export default function Dropdown() {
   const [open, setOpen] = useState(false);
   const dropdownEl = useRef();
 
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.auth.user);
+  console.log(user);
   // console.log(dropdownEl);
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -51,6 +56,9 @@ export default function Dropdown() {
           <div
             role="button"
             className="flex items-center  gap-4 p-2 hover:bg-gray-100 rounded-lg"
+            onClick={() => {
+              dispatch(logOut());
+            }}
           >
             <div className="rounded-full bg-gray-300 h-7 w-7 flex justify-center items-center">
               <RightFromBracketIcon />
