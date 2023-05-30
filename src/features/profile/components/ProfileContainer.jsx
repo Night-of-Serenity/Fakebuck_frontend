@@ -1,7 +1,11 @@
 import Avatar from "../../../components/Avatar";
 import { PenIcon } from "../../../icons";
+import Modal from "../../../components/Modal";
+import { useState } from "react";
+import EditProfileForm from "./EditProfileForm";
 
 export default function ProfileContainer() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="bg-gradient-to-b from-gray-300 to-white shadow">
       <div className="max-w-[68.5rem] max-h-[25.25rem] overflow-hidden flex justify-center items-center mx-auto rounded-b-xl aspect-[1096/404">
@@ -46,12 +50,25 @@ export default function ProfileContainer() {
           </div>
         </div>
         <div>
-          <button className="px-3 py-1.5 rounded-md bg-gray-200 hover:bg-gray-300">
+          <button
+            className="px-3 py-1.5 rounded-md bg-gray-200 hover:bg-gray-300"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
             <div className="flex gap-2 items-center">
               <PenIcon />
               <span className="font-semibold">Edit Profile</span>
             </div>
           </button>
+          <Modal
+            title="Edit profile"
+            open={open}
+            onClose={() => setOpen(false)}
+            width={44}
+          >
+            <EditProfileForm />
+          </Modal>
         </div>
       </div>
     </div>
