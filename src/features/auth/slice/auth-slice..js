@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   loading: false,
   user: null,
+  initialLoading: true,
 };
 
 export const registerAsync = createAsyncThunk(
@@ -67,17 +68,14 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.user = action.payload;
       })
-      .addCase(fetchMe.pending, (state) => {
-        state.loading = true;
-      })
       .addCase(fetchMe.fulfilled, (state, action) => {
-        state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload;
+        state.initialLoading = false;
       })
       .addCase(fetchMe.rejected, (state, action) => {
         state.error = action.payload;
-        state.loading = false;
+        state.initialLoading = false;
       }),
 });
 

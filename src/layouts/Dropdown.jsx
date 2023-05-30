@@ -47,7 +47,11 @@ export default function Dropdown() {
           </Link>
 
           <hr className="border border-gray-300 m-2" />
-          <div className="flex items-center  gap-4 p-2 hover:bg-gray-100 rounded-lg">
+
+          <div
+            role="button"
+            className="flex items-center  gap-4 p-2 hover:bg-gray-100 rounded-lg"
+          >
             <div className="rounded-full bg-gray-300 h-7 w-7 flex justify-center items-center">
               <RightFromBracketIcon />
             </div>
