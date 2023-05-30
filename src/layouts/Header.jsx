@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FacebookIcon } from "../icons";
+import { FacebookIcon, RightFromBracketIcon } from "../icons";
 import Menu from "./Menu";
+import Dropdown from "./Dropdown";
 
 export default function Header() {
   return (
@@ -12,6 +13,9 @@ export default function Header() {
         </Link>
       </div>
       <Menu />
+      <div className="justify-self-end self-center">
+        <Dropdown />
+      </div>
     </header>
   );
 }
