@@ -3,7 +3,7 @@ import validateLogin from "../validators/validate-login";
 import InputErrorMessage from "./InputErrorMessage";
 import useForm from "../../../hooks/useForm";
 import { useDispatch } from "react-redux";
-import { login } from "../slice/auth-slice.";
+import { login } from "../slice/auth-slice";
 import { toast } from "react-toastify";
 
 export default function LoginForm() {

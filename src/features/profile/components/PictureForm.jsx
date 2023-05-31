@@ -23,7 +23,15 @@ export default function PictureForm({ title, children, initialSrc, onSave }) {
         <div>
           {file && (
             <>
-              <FormButton onClick={onSave}>Save</FormButton>
+              <FormButton
+                onClick={async () => {
+                  await onSave(file);
+                  setFile(null);
+                  inputEl.current.value = "";
+                }}
+              >
+                Save
+              </FormButton>
               <FormButton
                 onClick={() => {
                   setFile(null);

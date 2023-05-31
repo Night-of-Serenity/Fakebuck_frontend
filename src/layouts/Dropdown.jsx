@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { logOut } from "../features/auth/slice/auth-slice.";
+import { logOut } from "../features/auth/slice/auth-slice";
 
 export default function Dropdown() {
   const [open, setOpen] = useState(false);

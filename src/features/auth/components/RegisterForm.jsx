@@ -5,7 +5,7 @@ import RegisterInput from "./RegisterInput";
 import validateRegister from "../validators/validate-register";
 import InputErrorMessage from "./InputErrorMessage";
 import { useDispatch } from "react-redux";
-import { registerAsync } from "../slice/auth-slice.";
+import { registerAsync } from "../slice/auth-slice";
 
 const initialInput = {
   firstName: "",
@@ -20,7 +20,8 @@ export default function RegisterForm({ onSuccess }) {
   const [error, setError] = useState({});
   const dispatch = useDispatch();
 
-  const handleChangeInput = (e) => setInput({ ...input, [e.target.name]: e.target.value });
+  const handleChangeInput = (e) =>
+    setInput({ ...input, [e.target.name]: e.target.value });
 
   const handdleSubmitForm = async (e) => {
     try {
@@ -76,7 +77,9 @@ export default function RegisterForm({ onSuccess }) {
             name="emailOrMobile"
             isInvalid={error.emailOrMobile}
           />
-          {error.emailOrMobile && <InputErrorMessage message={error.emailOrMobile} />}
+          {error.emailOrMobile && (
+            <InputErrorMessage message={error.emailOrMobile} />
+          )}
         </div>
         <div className="col-span-full">
           <RegisterInput
@@ -96,7 +99,9 @@ export default function RegisterForm({ onSuccess }) {
             name="confirmPassword"
             isInvalid={error.confirmPassword}
           />
-          {error.confirmPassword && <InputErrorMessage message={error.confirmPassword} />}
+          {error.confirmPassword && (
+            <InputErrorMessage message={error.confirmPassword} />
+          )}
         </div>
       </div>
 

@@ -51,11 +51,14 @@ export const logOut = createAsyncThunk("auth/logout", async () => {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  //   reducers: {
-  //     register: (state, action) => {
-  //       state.isAuthenticated = true;
-  //     },
-  //   },
+  reducers: {
+    updateProfileImage: (state, action) => {
+      state.user.profileImage = action.payload;
+    },
+    updateCoverImage: (state, action) => {
+      state.user.coverImage = action.payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(logOut.fulfilled, (state) => {
@@ -93,6 +96,8 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+
+export const { updateProfileImage, updateCoverImage } = authSlice.actions;
 
 // export const { register } = authSlice.actions;
 
