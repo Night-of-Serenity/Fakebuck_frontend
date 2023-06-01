@@ -15,14 +15,14 @@ export default function Dropdown() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+  // console.log(user);
   // console.log(dropdownEl);
   useEffect(() => {
     const handleClickOutside = (e) => {
       // console.log(e.target);
       if (!dropdownEl.current.contains(e.target)) setOpen(false);
     };
-    console.log(dropdownEl.current);
+    // console.log(dropdownEl.current);
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);

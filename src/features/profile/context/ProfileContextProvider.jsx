@@ -6,7 +6,7 @@ export const ProfileContext = createContext();
 
 export default function ProfileContextProvider({ children }) {
   const [profileUser, setProfileUser] = useState({});
-  const [profileFriends, setProfileFriends] = useState({});
+  const [profileFriends, setProfileFriends] = useState([]);
   const [statusWithAuthenticatedUser, setStatusWithAuthenticatedUser] =
     useState("");
 

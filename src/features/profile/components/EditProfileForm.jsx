@@ -18,7 +18,7 @@ export default function EditProfileForm() {
 
   const updateProfileImage = async (input) => {
     const formData = new FormData();
-    console.log(input);
+    // console.log(input);
     formData.append("profileImage", input);
 
     setIsLoading(true);
@@ -29,7 +29,7 @@ export default function EditProfileForm() {
 
   const updateCoverImage = async (input) => {
     const formData = new FormData();
-    console.log(input);
+    // console.log(input);
     formData.append("coverImage", input);
 
     setIsLoading(true);

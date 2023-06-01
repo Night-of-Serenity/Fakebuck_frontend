@@ -4,21 +4,32 @@ import ProfileInfo from "./ProfileInfo";
 import ProfileWrapper from "./ProfileWraper";
 import { useEffect } from "react";
 import useProfile from "../hooks/useProfile";
+import MeAction from "./MeAction";
+import FriendAction from "./FriendAction";
+import UnknownAction from "./UnknownAction";
+import RequesterAction from "./RequesterAction";
+import ReceiverAction from "./ReceiverAction";
+
+const actionMapping = {
+  ME: <MeAction />,
+  FRIEND: <FriendAction />,
+  UNKNOWN: <UnknownAction />,
+  REQUESTER: <RequesterAction />,
+  RECEIVER: <ReceiverAction />,
+};
 
 export default function ProfileContainer() {
   const { profileUserId } = useParams();
-  const { fetchProfile } = useProfile();
+  const { fetchProfile, profileUser, statusWithAuthenticatedUser } =
+    useProfile();
+  // console.log(profileUser);
 
   useEffect(() => {
     fetchProfile(profileUserId);
   }, [profileUserId, fetchProfile]);
   return (
-    <ProfileWrapper
-      cover={
-        <CoverImage src="https://images.pexels.com/photos/957002/berchtesgaden-alpine-watzmann-berchtesgaden-national-park-957002.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-      }
-    >
-      <ProfileInfo action={<div> </div>} />
+    <ProfileWrapper cover={<CoverImage src={profileUser.coverImage} />}>
+      <ProfileInfo action={actionMapping[statusWithAuthenticatedUser]} />
     </ProfileWrapper>
   );
 }
