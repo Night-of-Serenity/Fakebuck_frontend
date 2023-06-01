@@ -1,7 +1,5 @@
 import Avatar from "../../../components/Avatar";
-import { PenIcon } from "../../../icons/index";
-import Modal from "../../../components/Modal";
-import EditProfileForm from "./EditProfileForm";
+import MeAction from "./MeAction";
 
 export default function ProfileInfo() {
   return (
@@ -27,27 +25,15 @@ export default function ProfileInfo() {
             src="https://images.pexels.com/photos/1267335/pexels-photo-1267335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             className="h-[2rem] w-[2rem] ring-2 ring-white"
           />
+          <Avatar
+            src="https://images.pexels.com/photos/1267335/pexels-photo-1267335.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            className="h-[2rem] w-[2rem] ring-2 ring-white"
+          />
         </div>
       </div>
 
       <div className="mb-4">
-        <button
-          className="px-3 py-1.5 rounded-md bg-gray-200 hover:bg-gray-300"
-          onClick={() => setOpen(true)}
-        >
-          <div className="flex gap-2 items-center">
-            <PenIcon />
-            <span className="font-semibold">Edit profile</span>
-          </div>
-        </button>
-        <Modal
-          title="Edit profile"
-          open={open}
-          onClose={() => setOpen(false)}
-          width={44}
-        >
-          <EditProfileForm />
-        </Modal>
+        <MeAction />
       </div>
     </div>
   );
