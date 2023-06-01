@@ -30,6 +30,41 @@ export default function ProfileContextProvider({ children }) {
       console.log(err);
     }
   };
+
+  const confirmFriend = async () => {
+    try {
+      await friendService.confirmFriend(profileUser.id);
+      await fetchProfile(profileUser.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const rejectFriend = async () => {
+    try {
+      await friendService.rejectFriend(profileUser.id);
+      await fetchProfile(profileUser.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const cancelRequest = async () => {
+    try {
+      await friendService.cancelRequest(profileUser.id);
+      await fetchProfile(profileUser.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const unfriend = async () => {
+    try {
+      await friendService.unfriend(profileUser.id);
+      await fetchProfile(profileUser.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ProfileContext.Provider
       value={{
@@ -38,6 +73,10 @@ export default function ProfileContextProvider({ children }) {
         statusWithAuthenticatedUser,
         fetchProfile,
         addFriend,
+        confirmFriend,
+        rejectFriend,
+        cancelRequest,
+        unfriend,
       }}
     >
       {children}

@@ -7,7 +7,7 @@ export default function ProfileInfo({ action }) {
     profileFriends,
   } = useProfile();
   console.log(useProfile());
-  console.log(profileFriends);
+  // console.log(profileFriends);
   return (
     <div className="flex items-end gap-4 px-4 pb-4">
       <div className="-mt-8">
