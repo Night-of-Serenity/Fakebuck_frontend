@@ -37,7 +37,7 @@ export default function Dropdown() {
       shadow-lg p-2"
         >
           <Link
-            to="/profile"
+            to={`/profile/${user.id}`}
             onClick={() => {
               setOpen(false);
             }}
