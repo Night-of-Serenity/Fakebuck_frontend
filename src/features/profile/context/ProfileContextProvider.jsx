@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { createContext } from "react";
 import * as userService from "../../../api/user-api";
+import * as friendService from "../../../api/friend-api";
 
 export const ProfileContext = createContext();
 
@@ -20,6 +21,15 @@ export default function ProfileContextProvider({ children }) {
       console.log(err);
     }
   }, []);
+
+  const addFriend = async () => {
+    try {
+      await friendService.addFriend(profileUser.id);
+      await fetchProfile(profileUser.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ProfileContext.Provider
       value={{
@@ -27,6 +37,7 @@ export default function ProfileContextProvider({ children }) {
         profileFriends,
         statusWithAuthenticatedUser,
         fetchProfile,
+        addFriend,
       }}
     >
       {children}
