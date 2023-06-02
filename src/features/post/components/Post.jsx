@@ -14,7 +14,7 @@ export default function Post({ post }) {
           </div>
         )}
       </div>
-      <PostFooter />
+      <PostFooter post={post} />
     </div>
   );
 }
