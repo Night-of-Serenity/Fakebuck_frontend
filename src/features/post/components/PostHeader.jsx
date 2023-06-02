@@ -1,18 +1,22 @@
 import Avatar from "../../../components/Avatar";
 import { Link } from "react-router-dom";
 import { EllipsisIcon } from "../../../icons";
+import formatTimeAgo from "../../../utils/timeago";
 
-export default function PostHeader() {
+export default function PostHeader({ post }) {
+  const { firstName, lastName, profileImage } = post.User;
   return (
     <div className="flex items-center gap-2">
       <Link>
-        <Avatar />
+        <Avatar src={profileImage} />
       </Link>
       <div className="flex-1 flex flex-col items-start">
         <Link className="text-sm font-semibold hover:underline">
-          Joel Windston
+          {firstName} {lastName}
         </Link>
-        <small className="text-xs text-gray-500">1d</small>
+        <small className="text-xs text-gray-500">
+          {formatTimeAgo(post.createdAt)}
+        </small>
       </div>
       <div className="relative">
         <div className="hover:bg-gray-200 rounded-full h-9 w-9 flex items-center justify-center">
