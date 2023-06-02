@@ -5,7 +5,7 @@ import Modal from "../../../components/Modal";
 import { useState } from "react";
 import PostForm from "./PostForm";
 
-export default function CreatePostBox() {
+export default function CreatePostBox({ createPost }) {
   const [open, setOpen] = useState(false);
   const { id, firstName, profileImage } = useSelector(
     (state) => state.auth.user
@@ -31,7 +31,7 @@ export default function CreatePostBox() {
         open={open}
         onClose={() => setOpen(false)}
       >
-        <PostForm />
+        <PostForm createPost={createPost} onSuccess={() => setOpen(false)} />
       </Modal>
     </div>
   );
